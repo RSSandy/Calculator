@@ -53,21 +53,9 @@ public class Frontend extends Application{
     public void createNumField(Pane parent){
         numberField = new TextField();
         numberField.setLayoutX(330);
-        numberField.setLayoutY(200);
+        numberField.setLayoutY(100);
         numberField.setMinHeight(60);
         numberField.setMinWidth(80);
-        // NumberStringFilteredConverter converter = new NumberStringFilteredConverter();
-        // final TextFormatter<Number> formatter = new TextFormatter<>(
-        //         converter,
-        //         0,
-        //         converter.getFilter()
-        // );
-
-        // numberField.setTextFormatter(formatter);
-
-        // formatter.valueProperty().addListener((observable, oldValue, newValue) ->
-        //         System.out.println(newValue)
-        // );
        
         parent.getChildren().add(numberField);    
     }
@@ -84,7 +72,7 @@ public class Frontend extends Application{
 
         //setup gridPane
         gridPane.setLayoutX(330);
-        gridPane.setLayoutY(300);
+        gridPane.setLayoutY(200);
 
         parent.getChildren().add(gridPane);
     }
@@ -104,7 +92,7 @@ public class Frontend extends Application{
                         numberField.setText(numberField.getText() + button.getText());
                     }
                 });
-                gridPane.add(button, col, row);
+                gridPane.add(button, col, row + 1);
                 num++;
             }
         }
@@ -118,7 +106,7 @@ public class Frontend extends Application{
                         numberField.setText(numberField.getText() + "0");
                     }
         });  
-        gridPane.add(button0, 1, 3);
+        gridPane.add(button0, 1, 4);
 
         //create period
         Button period = new Button(".");
@@ -129,7 +117,7 @@ public class Frontend extends Application{
                         numberField.setText(numberField.getText() + ".");
                     }
         });  
-        gridPane.add(period, 0, 3);
+        gridPane.add(period, 0, 4);
     }
 
     //creates enter and AC on keypad
@@ -146,10 +134,10 @@ public class Frontend extends Application{
         enter.setMaxHeight(50);
         enter.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e){
-                numberField.setText(backend.addToArray(numberField.getText()));
+                numberField.setText(backend.compute(numberField.getText()));
             }
         });
-        gridPane.add(enter, 2, 3);
+        gridPane.add(enter, 2, 4);
 
         //create AC (all clear) button
         Button ac = new Button("AC");
@@ -158,7 +146,6 @@ public class Frontend extends Application{
         ac.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e){
                 numberField.setText("");
-                backend.clear();
             }
         });
         gridPane.add(ac, 4, 0);
@@ -166,9 +153,48 @@ public class Frontend extends Application{
 
     public void createKeypadFunctions(GridPane gridPane){
         //create multiplication button
+        Button mult = new Button("X");
+        mult.setMinWidth(50);
+        mult.setMinHeight(50);
+        mult.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e){
+                numberField.setText(numberField.getText() + " X ");
+            }
+        });
+        gridPane.add(mult, 4, 1);
+
         //crete division button
+        Button div = new Button("/");
+        div.setMinWidth(50);
+        div.setMinHeight(50);
+        div.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e){
+                numberField.setText(numberField.getText() + " / ");
+            }
+        });
+        gridPane.add(div, 4, 2);
+
         //create addition button
+        Button addition = new Button("+");
+        addition.setMinWidth(50);
+        addition.setMinHeight(50);
+        addition.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e){
+                numberField.setText(numberField.getText() + " + ");
+            }
+        });
+        gridPane.add(addition, 4, 3);
+
         //create subtraction button
+        Button sub = new Button("-");
+        sub.setMinWidth(50);
+        sub.setMinHeight(50);
+        sub.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e){
+                numberField.setText(numberField.getText() + " - ");
+            }
+        });
+        gridPane.add(sub, 4, 4);
     }
 
     class NumberStringFilteredConverter extends NumberStringConverter {

@@ -1,21 +1,25 @@
-import java.util.ArrayList;
 
 public class Backend {
 
-    private static ArrayList<String> ongoing;
 
     public Backend(){
-        ongoing = new ArrayList<String>();
+        
     }
 
-    public String addToArray(String add){
-        ongoing.add(add);
-        Double rv = Double.parseDouble(add) * 10;
-        System.out.println("\n" + add+ "\n");
-        return Double.toString(rv);
-    }
+    /*general idea:
+     * whenever user presses '=' , 
+     * -> we get the string that is in numberField
+     * -> we parse it for x, /, + , and - using .split()
+     * -> we use a loop to run through the fragments 
+     * -> and apply their respective functions to op1 and op2 
+     * -> once loop finishes, return the finalValue.toString()
+     */
+    public String compute(String add){
+        String[] parseMe = add.split(" ");
+        Double startSum = Double.parseDouble(parseMe[0]);
+        for(int i = 0; i < parseMe.length; i++){ //parseMe.length = # of operations to be done?
 
-    public void clear(){
-        ongoing.clear();
+        }
+        return null;
     }
 }

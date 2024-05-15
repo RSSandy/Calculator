@@ -52,6 +52,7 @@ public class Frontend extends Application{
     //create numfield
     public void createNumField(Pane parent){
         numberField = new TextField();
+        numberField.setEditable(false);
         numberField.setLayoutX(330);
         numberField.setLayoutY(100);
         numberField.setMinHeight(60);
@@ -196,24 +197,4 @@ public class Frontend extends Application{
         });
         gridPane.add(sub, 4, 4);
     }
-
-    class NumberStringFilteredConverter extends NumberStringConverter {
-        public UnaryOperator<TextFormatter.Change> getFilter() {
-            return change -> {
-                String newText = change.getControlNewText();
-                if (newText.isEmpty()) {
-                    return change;
-                }
-
-                ParsePosition parsePosition = new ParsePosition( 0 );
-                Object object = getNumberFormat().parse( newText, parsePosition );
-                if ( object == null || parsePosition.getIndex() < newText.length()) {
-                    return null;
-                } else {
-                    return change;
-                }
-            };
-        }
-    }
-
 }

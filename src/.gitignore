@@ -2,3 +2,4 @@ Frontend.class
 Backend.class
 Frontend$NumberStringFilteredConverter.class
 App.class
+BackendTests.class

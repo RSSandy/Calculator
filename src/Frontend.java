@@ -7,6 +7,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.GridPane;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -43,34 +46,53 @@ public class Frontend extends Application{
     //creates all the controls, calls all other functions
     public void createAllControls(Pane parent){
         createNumField(parent);
-        createNumberButtons(parent);
+        createKeypad(parent);
     }
 
     //create numfield
     public void createNumField(Pane parent){
         numberField = new TextField();
-        NumberStringFilteredConverter converter = new NumberStringFilteredConverter();
-        final TextFormatter<Number> formatter = new TextFormatter<>(
-                converter,
-                0,
-                converter.getFilter()
-        );
+        numberField.setLayoutX(330);
+        numberField.setLayoutY(200);
+        numberField.setMinHeight(60);
+        numberField.setMinWidth(80);
+        // NumberStringFilteredConverter converter = new NumberStringFilteredConverter();
+        // final TextFormatter<Number> formatter = new TextFormatter<>(
+        //         converter,
+        //         0,
+        //         converter.getFilter()
+        // );
 
-        numberField.setTextFormatter(formatter);
+        // numberField.setTextFormatter(formatter);
 
-        formatter.valueProperty().addListener((observable, oldValue, newValue) ->
-                System.out.println(newValue)
-        );
+        // formatter.valueProperty().addListener((observable, oldValue, newValue) ->
+        //         System.out.println(newValue)
+        // );
        
         parent.getChildren().add(numberField);    
     }
 
-    //create numbers
-    public void createNumberButtons(Pane parent){
+    //creates keypad with numbers, enter, AC
+    public void createKeypad(Pane parent){
         GridPane gridPane = new GridPane();
         gridPane.setHgap(10);
         gridPane.setVgap(10);
 
+        createKeypadNumbers(gridPane);
+        createKeypadControls(gridPane);
+        createKeypadFunctions(gridPane);
+
+        //setup gridPane
+        gridPane.setLayoutX(330);
+        gridPane.setLayoutY(300);
+
+        parent.getChildren().add(gridPane);
+    }
+
+    //creates numbers 0-9 and . on keypad
+    public void createKeypadNumbers(GridPane gridPane){
+
+        //create 0-9
         int num = 1;
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
@@ -87,22 +109,66 @@ public class Frontend extends Application{
             }
         }
         
-        // Button 0
+        // create button 0
         Button button0 = new Button("0");
         button0.setMinWidth(50);
         button0.setMinHeight(50);
-        gridPane.add(button0, 1, 3);
         button0.setOnAction(new EventHandler<ActionEvent>() {
                     @Override public void handle(ActionEvent e){
                         numberField.setText(numberField.getText() + "0");
                     }
-                });
+        });  
+        gridPane.add(button0, 1, 3);
 
-        //setup gridPane
-        gridPane.setLayoutX(400);
-        gridPane.setLayoutY(300);
+        //create period
+        Button period = new Button(".");
+        period.setMinWidth(50);
+        period.setMinHeight(50);
+        period.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override public void handle(ActionEvent e){
+                        numberField.setText(numberField.getText() + ".");
+                    }
+        });  
+        gridPane.add(period, 0, 3);
+    }
 
-        parent.getChildren().add(gridPane);
+    //creates enter and AC on keypad
+    public void createKeypadControls(GridPane gridPane){
+        //create enter button
+        Button enter = new Button();
+        ImageView enterImg = new ImageView(new Image("media/equal_symbol.png"));
+        enterImg.setFitWidth(30);
+        enterImg.setPreserveRatio(true);
+        enterImg.setSmooth(true);
+        enterImg.setCache(true);
+        enter.setGraphic(enterImg);
+        enter.setMaxWidth(50);
+        enter.setMaxHeight(50);
+        enter.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e){
+                numberField.setText(backend.addToArray(numberField.getText()));
+            }
+        });
+        gridPane.add(enter, 2, 3);
+
+        //create AC (all clear) button
+        Button ac = new Button("AC");
+        ac.setMinWidth(50);
+        ac.setMinHeight(50);
+        ac.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e){
+                numberField.setText("");
+                backend.clear();
+            }
+        });
+        gridPane.add(ac, 4, 0);
+    }
+
+    public void createKeypadFunctions(GridPane gridPane){
+        //create multiplication button
+        //crete division button
+        //create addition button
+        //create subtraction button
     }
 
     class NumberStringFilteredConverter extends NumberStringConverter {

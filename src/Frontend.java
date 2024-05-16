@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.GridPane;
+import javafx.geometry.Pos;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -53,10 +54,10 @@ public class Frontend extends Application{
     public void createNumField(Pane parent){
         numberField = new TextField();
         numberField.setEditable(false);
-        numberField.setLayoutX(330);
+        numberField.setLayoutX(150);
         numberField.setLayoutY(100);
         numberField.setMinHeight(60);
-        numberField.setMinWidth(80);
+        numberField.setMinWidth(500);
        
         parent.getChildren().add(numberField);    
     }
@@ -72,7 +73,7 @@ public class Frontend extends Application{
         createKeypadFunctions(gridPane);
 
         //setup gridPane
-        gridPane.setLayoutX(330);
+        gridPane.setLayoutX(275);
         gridPane.setLayoutY(200);
 
         parent.getChildren().add(gridPane);

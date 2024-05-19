@@ -38,7 +38,7 @@ public class Frontend extends Application{
         Pane root = new Pane();
         root.setId("root");
         createAllControls(root);
-        Scene scene =  new Scene(root, 800, 600);
+        Scene scene =  new Scene(root, 550, 500);
         stage.setScene(scene);
         stage.setTitle("Sandy's Calculator");
         stage.show();
@@ -54,8 +54,8 @@ public class Frontend extends Application{
     public void createNumField(Pane parent){
         numberField = new TextField();
         numberField.setEditable(false);
-        numberField.setLayoutX(150);
-        numberField.setLayoutY(100);
+        numberField.setLayoutX(25);
+        numberField.setLayoutY(75);
         numberField.setMinHeight(60);
         numberField.setMinWidth(500);
        
@@ -73,8 +73,8 @@ public class Frontend extends Application{
         createKeypadFunctions(gridPane);
 
         //setup gridPane
-        gridPane.setLayoutX(275);
-        gridPane.setLayoutY(200);
+        gridPane.setLayoutX(145);
+        gridPane.setLayoutY(170);
 
         parent.getChildren().add(gridPane);
     }
